@@ -1,0 +1,18 @@
+.static {
+  position: static
+}
+
+.bg-red-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 165 165 / var(--tw-bg-opacity))
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem
+}

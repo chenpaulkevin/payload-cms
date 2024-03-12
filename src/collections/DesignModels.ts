@@ -1,0 +1,99 @@
+import { CollectionConfig } from 'payload/types'
+import slug from '../fields/slug'
+import { isAdminorAuthor } from '../access/isAdminOrAuthor';
+import createdBy from '../fields/createdBy';
+
+const DesignModels: CollectionConfig = {
+    slug: 'designModels',
+    admin:{
+      useAsTitle: 'title'
+    },
+    access:{
+        create: isAdminorAuthor,
+        read: isAdminorAuthor,
+        update: isAdminorAuthor,
+        delete: isAdminorAuthor,
+      },
+      fields: [
+        {
+            label: 'Model Title',
+            name: 'title',
+            required: true,
+            type: 'text',
+            unique: true,
+            minLength: 2,
+            maxLength: 20
+        },
+        {
+            label: 'Project Description',
+            name: 'description',
+            required: true,
+            type: 'textarea',
+            minLength: 10,
+            maxLength: 200
+        },
+        {
+          type: 'row',
+          fields: [        {
+            label: 'Floor Area (sqm)',
+            name: 'floorArea',
+            required: true,
+            type: 'number',
+            min: 1,
+            max: 50000
+        },
+        {
+            label: 'Category',
+            name: 'category',
+            type: 'select',
+            required: true,
+            defaultValue:'bungalow',
+            options: [
+              {
+                label: 'Bungalow',
+                value: 'bungalow'
+              },
+              {
+                label: 'Two Storey',
+                value: 'twoStorey'
+              },
+              {
+                label: 'Three Storey',
+                value: 'threeStorey'
+              },
+            ]
+          },],
+        },
+            {
+              label: 'Featured Image',
+              name: 'featuredImage',
+              type: 'upload',
+              relationTo: 'media',
+              required: true,
+            },
+            {
+              label: 'Floor Plan Image',
+              name: 'floorPlanImage',
+              type: 'upload',
+              relationTo: 'media',
+              required: true,
+            },
+
+          slug,
+          createdBy
+      ],    
+      hooks: {
+        beforeChange: [
+          ({ req, operation, data }) => {
+            if (operation === 'create') {
+              if (req.user) {
+                data.createdBy = req.user.id;
+                return data;
+              }
+            }
+          },
+        ],
+      },
+}
+
+export default DesignModels
