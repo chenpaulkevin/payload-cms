@@ -17,6 +17,7 @@ import { Categories } from './collections/Blog/Categories'
 import { Blog } from './collections/Blog/Blog'
 import Testimonials from './collections/Testimonials'
 import { Header } from './globals/Header'
+import { Footer } from './globals/Footer'
 
 export default buildConfig({
   admin: {
@@ -63,7 +64,7 @@ export default buildConfig({
   },
   editor: slateEditor({}),
   collections: [Blog, Users, Pages, Media, DesignModels,  Categories, Testimonials],
-  globals: [Header],
+  globals: [Header, Footer],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
