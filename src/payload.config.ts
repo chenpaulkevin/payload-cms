@@ -20,18 +20,8 @@ import { Header } from './globals/Header'
 import { Footer } from './globals/Footer'
 
 export default buildConfig({
+  serverURL: 'http://localhost:4000',
   admin: {
-    livePreview: {
-      url: 'http://localhost:3001',
-      breakpoints: [
-        {
-          label: 'Mobile',
-          name: 'mobile',
-          width: 375,
-          height: 667,
-        },
-      ]
-    },
     user: Users.slug,
     webpack: (config) => {
       return {
@@ -64,9 +54,11 @@ export default buildConfig({
   },
   editor: slateEditor({}),
   collections: [Blog, Users, Pages, Media, DesignModels,  Categories, Testimonials],
+  csrf: ['http://localhost:3000/', 'localhost:3000'],
   globals: [Header, Footer],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
+    declare: false,
   },
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),

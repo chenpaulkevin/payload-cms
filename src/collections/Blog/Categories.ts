@@ -1,6 +1,8 @@
 import { CollectionConfig } from 'payload/types'
 import slug from '../../fields/slug';
 import createdBy from '../../fields/createdBy';
+import { isAdminorAuthor } from '../../access/isAdminOrAuthor';
+import { isAdmin } from '../../access/isAdmin';
 
   export const Categories: CollectionConfig = {
     slug: 'categories',
@@ -10,7 +12,14 @@ import createdBy from '../../fields/createdBy';
     },
     admin:{
         useAsTitle: 'category',
-        group: 'Blog'
+        group: 'Blog',
+        
+      },
+      access:{
+        create: isAdminorAuthor,
+        read: () => true,
+        update: isAdminorAuthor,
+        delete: isAdmin,
       },
       hooks: {
         beforeChange: [

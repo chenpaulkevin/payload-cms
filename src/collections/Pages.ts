@@ -17,13 +17,14 @@ const Pages: CollectionConfig = {
     },
     access:{
         create: isAdmin,
-        read: isAdmin,
+        read: () => true,
         update: isAdmin,
         delete: isAdmin,
       },
       versions: {
         drafts: true,
       },    
+
       fields:[
         {
             label: 'Page Title',

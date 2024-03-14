@@ -11,7 +11,7 @@ const  Testimonials: CollectionConfig = {
       },
       access:{
         create: isAdminorAuthor,
-        read: isAdminorAuthor,
+        read: () => true,
         update: isAdminorAuthor,
         delete: isAdminorAuthor,
       },

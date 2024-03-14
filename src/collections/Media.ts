@@ -23,7 +23,7 @@ const Media: CollectionConfig = {
   slug: 'media',
   access:{
     create: isAdminorAuthor,
-    read: isAdminorAuthor ,
+    read: () => true,
     update: isAdminorAuthor ,
     delete: isAdminorAuthor,
   },
