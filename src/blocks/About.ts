@@ -26,7 +26,11 @@ export const About:Block ={
             required: true,
             type: 'textarea',
             minLength: 10,
-            maxLength: 250,
+            maxLength: 150,
+            admin: {
+              description: ({ path, value }) =>
+                `${typeof value === 'string' ? 150 - value.length : '150'} characters left.`,
+            },
         },
         {
             type: 'row',

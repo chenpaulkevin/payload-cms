@@ -52,7 +52,7 @@ export const Blog: CollectionConfig = {
                     name: 'categories',
                     required: true,
                     type: 'relationship',
-                    relationTo:'blog'
+                    relationTo:'categories'
                 },
                 {
                     label: 'Estimated Read Time (Minutes)',

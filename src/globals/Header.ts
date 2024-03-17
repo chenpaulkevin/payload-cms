@@ -5,7 +5,7 @@ export const Header:GlobalConfig = {
     slug: 'header',
     label: 'Header Configurations',
     access: {
-        read: isAdmin,
+        read: ()=>true,
         update: isAdmin
     },
     admin:{
@@ -34,7 +34,7 @@ export const Header:GlobalConfig = {
                     maxLength: 20,
                 },
                 {
-                    label: 'Link',
+                    label: 'Slug / Link',
                     name: 'link',
                     type: 'text',
                     required: true,

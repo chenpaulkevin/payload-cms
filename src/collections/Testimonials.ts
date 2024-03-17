@@ -7,7 +7,7 @@ import createdBy from '../fields/createdBy';
 const  Testimonials: CollectionConfig = {
     slug:'testimonials',
     admin:{
-        useAsTitle: 'testimonialTitle',
+        useAsTitle: 'title',
       },
       access:{
         create: isAdminorAuthor,
@@ -28,12 +28,6 @@ const  Testimonials: CollectionConfig = {
         ],
       },
       fields:[
-        {
-            type: 'group',
-            interfaceName: 'Meta',
-            name: 'customerTestimonials',
-            label: 'Customer Testimonial Details',
-            fields: [
                 {
                     type: 'row',
                     fields: [
@@ -57,7 +51,7 @@ const  Testimonials: CollectionConfig = {
                 },
                 {
                     label: 'Testimonial Title',
-                    name:'testimonialTitle',
+                    name:'title',
                     required: true,
                     type: "text",
                     minLength: 2,
@@ -79,9 +73,6 @@ const  Testimonials: CollectionConfig = {
                   },
                 slug,
                 createdBy,
-            ]
-        },
-
       ]
 }
 

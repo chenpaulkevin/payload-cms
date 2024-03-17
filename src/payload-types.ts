@@ -30,7 +30,7 @@ export interface Config {
 export interface Blog {
   id: number;
   title: string;
-  categories: number | Blog;
+  categories: number | Category;
   readTime: number;
   blogContent: {
     [k: string]: unknown;
@@ -41,6 +41,38 @@ export interface Blog {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  title: string;
+  slug?: string | null;
+  createdBy?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  role: 'admin' | 'developer' | 'author';
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -79,26 +111,6 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  role: 'admin' | 'developer' | 'author';
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
@@ -132,7 +144,9 @@ export interface Page {
             blockType: 'about';
           }
         | {
-            featuredBlogPosts: Meta;
+            mainFeature: number | Blog;
+            secondaryFeature: number | Blog;
+            thirdFeature: number | Blog;
             id?: string | null;
             blockName?: string | null;
             blockType: 'blogCollection';
@@ -162,36 +176,17 @@ export interface DesignModel {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Meta".
- */
-export interface Meta {
-  firstName: string;
-  lastName: string;
-  testimonialTitle: string;
-  testimonialDescription: string;
-  customerImage?: number | Media | null;
-  slug?: string | null;
-  createdBy?: (number | null) | User;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: number;
-  category: string;
-  slug?: string | null;
-  createdBy?: (number | null) | User;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "testimonials".
  */
 export interface Testimonial {
   id: number;
-  customerTestimonials: Meta;
+  firstName: string;
+  lastName: string;
+  title: string;
+  testimonialDescription: string;
+  customerImage?: number | Media | null;
+  slug?: string | null;
+  createdBy?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
 }

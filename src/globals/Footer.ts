@@ -5,7 +5,7 @@ export const Footer: GlobalConfig = {
     slug: 'footer',
     label: 'Footer Configurations',
     access:{
-        read: isAdmin,
+        read: ()=>true,
         update: isAdmin
     },
     admin:{
@@ -53,7 +53,7 @@ export const Footer: GlobalConfig = {
                             maxLength: 20,
                         },
                         {
-                            label: 'Link',
+                            label: 'Slug / Link',
                             name: 'link',
                             type: 'text',
                             required: true,

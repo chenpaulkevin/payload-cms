@@ -30,7 +30,11 @@ const DesignModels: CollectionConfig = {
             required: true,
             type: 'textarea',
             minLength: 10,
-            maxLength: 200
+            maxLength: 500,
+            admin: {
+              description: ({ path, value }) =>
+                `${typeof value === 'string' ? 500 - value.length : '500'} characters left.`,
+            },
         },
         {
           type: 'row',

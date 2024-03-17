@@ -11,12 +11,7 @@ export const  BlogCollection:Block = {
         plural: 'Blog Collection Blocks'
     },
     fields: [
-        {
-            label: 'Featured Blog Posts',
-            name: 'featuredBlogPosts',
-            interfaceName: 'Meta',
-            type: "group",
-            fields: [
+
                 {
                     label: 'Main Featured Blog Posts',
                     name: 'mainFeature',
@@ -37,8 +32,7 @@ export const  BlogCollection:Block = {
                     type: 'relationship',
                     relationTo: 'blog'
                 }
-            ]
-        }
+
 
     ]
 }

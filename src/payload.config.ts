@@ -20,7 +20,7 @@ import { Header } from './globals/Header'
 import { Footer } from './globals/Footer'
 
 export default buildConfig({
-  serverURL: 'http://localhost:4000',
+  serverURL: 'http://localhost:3000',
   admin: {
     user: Users.slug,
     webpack: (config) => {
@@ -54,7 +54,14 @@ export default buildConfig({
   },
   editor: slateEditor({}),
   collections: [Blog, Users, Pages, Media, DesignModels,  Categories, Testimonials],
-  csrf: ['http://localhost:3000/', 'localhost:3000'],
+  cors: [
+    process.env.PAYLOAD_PUBLIC_SERVER_URL || '',
+    process.env.PAYLOAD_PUBLIC_SITE_URL || '',
+  ].filter(Boolean),
+  csrf: [
+    process.env.PAYLOAD_PUBLIC_SERVER_URL || '',
+    process.env.PAYLOAD_PUBLIC_SITE_URL || '',
+  ].filter(Boolean),
   globals: [Header, Footer],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),

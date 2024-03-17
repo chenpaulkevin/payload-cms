@@ -8,7 +8,6 @@ const slug: Field = {
     unique:true,
     admin: {
         position: 'sidebar',
-        readOnly:true,
     },
     hooks: {
         beforeValidate: [

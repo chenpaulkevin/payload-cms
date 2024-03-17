@@ -24,8 +24,12 @@ export const Hero: Block = {
       name: "subHeadline",
       required: true,
       type: "textarea",
-      minLength: 100,
-      maxLength: 250,
+      minLength: 10,
+      maxLength: 300,
+      admin: {
+        description: ({ path, value }) =>
+          `${typeof value === 'string' ? 300 - value.length : '300'} characters left.`,
+      },
     },
     {
       label: "Call to Action Headline",
@@ -34,7 +38,10 @@ export const Hero: Block = {
       type: 'text',
       minLength: 10,
       maxLength: 80,
-      
+      admin: {
+        description: ({ path, value }) =>
+          `${typeof value === 'string' ? 80 - value.length : '80'} characters left.`,
+      },
     },
     {
       type: 'row',

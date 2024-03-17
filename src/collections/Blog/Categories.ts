@@ -11,7 +11,7 @@ import { isAdmin } from '../../access/isAdmin';
         plural: 'Blog Categories',
     },
     admin:{
-        useAsTitle: 'category',
+        useAsTitle: 'title',
         group: 'Blog',
         
       },
@@ -35,8 +35,8 @@ import { isAdmin } from '../../access/isAdmin';
       },
     fields: [
         {
-            label: 'New Blog Category',
-            name: 'category',
+            label: 'Blog Category Title',
+            name: 'title',
             required: true,
             type: 'text',
             minLength: 4,

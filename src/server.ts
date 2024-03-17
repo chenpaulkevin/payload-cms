@@ -23,9 +23,9 @@ const start = async () => {
 
   // Add your own express routes here
 
-  app.listen(4000, async () => {
+  app.listen(3000, async () => {
     console.log(
-      "Express is now listening for incoming connections on port 4000."
+      "Express is now listening for incoming connections on port 3000."
     )
   })
 }
