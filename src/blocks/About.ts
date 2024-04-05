@@ -33,44 +33,28 @@ export const About:Block ={
             },
         },
         {
-            type: 'row',
+            label: 'Company Milestones',
+            name: 'milestones',
+            type: 'array',
+            required: true,
+            maxRows: 4, 
+            minRows:4,
             fields: [
                 {
-                    label: 'Projects Completed',
-                    name: 'projectsCompleted',
-                    type: 'number',
+                    label: 'Milestone Label',
+                    name: 'label',
+                    type: 'text',
                     required: true,
-                    min: 1,
-                    max: 50000
+                    minLength: 2,
+                    maxLength: 20,
                 },
                 {
-                    label: 'Years of Experience',
-                    name: 'experience',
+                    label: 'Milestone Value',
+                    name: 'value',
                     type: 'number',
-                    required: true,
                     min: 1,
-                    max: 2000
-                },
-            ]
-        },
-        {
-            type: 'row',
-            fields: [
-                {
-                    label: 'Employees',
-                    name: 'employees',
-                    type: 'number',
+                    max: 50000,
                     required: true,
-                    min: 1,
-                    max: 2000,
-                },
-                {
-                    label: 'Satisfied Customers',
-                    name: 'satisfiedCustomers',
-                    type: 'number',
-                    required: true,
-                    min: 1,
-                    max: 50000
                 }
             ]
         },

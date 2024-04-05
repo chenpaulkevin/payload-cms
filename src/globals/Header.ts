@@ -13,17 +13,48 @@ export const Header:GlobalConfig = {
     },
     fields: [
         {
-            label: 'Logo',
-            name: 'logo',
-            type: 'upload',
-            required: true,
-            relationTo: 'media'
+            type: 'row',
+            fields:[
+                {
+                    label: 'Logo',
+                    name: 'logo',
+                    type: 'upload',
+                    required: true,
+                    relationTo: 'media'
+                },
+                {
+                    label: 'Call To Action Button',
+                    name: 'cta',
+                    type: 'array',
+                    required: true,
+                    maxRows: 1,
+                    fields: [
+                        {
+                            label: 'Label',
+                            name: 'ctaLabel',
+                            type: 'text',
+                            required: true,
+                            minLength: 2,
+                            maxLength: 20,
+                        },
+                        {
+                            label: 'Slug / Link',
+                            name: 'ctaLink',
+                            type: 'relationship',
+                            required: true,
+                            relationTo: 'pages',
+                        }
+                    ]
+                }
+            ]
         },
+
         {
             label: 'Navigation Links',
             name: 'navLinks',
             type: 'array',
             required: true,
+            maxRows: 7,
             fields: [
                 {
                     label: 'Label',
@@ -36,10 +67,9 @@ export const Header:GlobalConfig = {
                 {
                     label: 'Slug / Link',
                     name: 'link',
-                    type: 'text',
+                    type: 'relationship',
                     required: true,
-                    minLength: 1,
-                    maxLength: 100
+                    relationTo: 'pages',
                 }
             ]
         }

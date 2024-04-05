@@ -5,6 +5,8 @@ import { Hero } from '../blocks/Hero';
 import { About } from '../blocks/About';
 import createdBy from '../fields/createdBy';
 import { BlogCollection } from '../blocks/BlogCollection';
+import {Testimonials} from '../blocks/Testimonials';
+import {SimpleRichText} from '../blocks/SimpleRichText';
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -46,6 +48,8 @@ const Pages: CollectionConfig = {
         Hero,
         About,
         BlogCollection,
+        Testimonials,
+        SimpleRichText
       ]
     }
   ],

@@ -45,6 +45,18 @@ export const Blog: CollectionConfig = {
             maxLength: 80
         },
         {
+          label: 'Blog Description',
+          name: 'description',
+          required: true,
+          type: 'textarea',
+          minLength: 10,
+          maxLength: 300,
+          admin: {
+            description: ({ path, value }) =>
+              `${typeof value === 'string' ? 300 - value.length : '300'} characters left.`,
+          },
+      },
+        {
             type: 'row',
             fields: [
                 {
@@ -65,19 +77,19 @@ export const Blog: CollectionConfig = {
             ]
         },
         {
+          label: 'Blog Cover Image',
+          name: 'blogImage',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+        {
             label: 'Blog Content',
             name: 'blogContent',
             required: true,
             type:'richText',
 
         },
-        {
-            label: 'Blog Cover Image',
-            name: 'blogImage',
-            type: 'upload',
-            relationTo: 'media',
-            required: true,
-          },
         slug,
         createdBy,
     ]

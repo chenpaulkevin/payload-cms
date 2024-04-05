@@ -36,6 +36,13 @@ export const Footer: GlobalConfig = {
             maxLength: 200,
         },
         {
+            label: 'Company Motto',
+            name: 'motto',
+            type: 'text',
+            minLength: 2,
+            maxLength: 100
+        },
+        {
             type: 'row',
             fields: [
                 {
@@ -43,6 +50,7 @@ export const Footer: GlobalConfig = {
                     name: 'quickLinks',
                     type: 'array',
                     required: true,
+                    maxRows: 8,
                     fields: [
                         {
                             label: 'Label',
@@ -55,10 +63,9 @@ export const Footer: GlobalConfig = {
                         {
                             label: 'Slug / Link',
                             name: 'link',
-                            type: 'text',
+                            type: 'relationship',
                             required: true,
-                            minLength: 1,
-                            maxLength: 100
+                            relationTo: 'pages',
                         }
                     ]
                 },
@@ -67,6 +74,8 @@ export const Footer: GlobalConfig = {
                     name: 'location',
                     type: 'array',
                     required: true,
+                    maxRows: 2,
+                    minRows: 1,
                     fields: [
                         {
                             label: 'City',
@@ -89,44 +98,42 @@ export const Footer: GlobalConfig = {
             ]
         },
         {
-            type: 'group',
-            name: 'socialLinks',
-            label:'Social Links',
+            label: 'Social Media Links',
+            name: 'socialMediaLinks',
+            type: 'array',
+            required: true,
+            maxRows: 6,
             fields: [
                 {
-                    label: 'Facebook Link',
-                    name: 'facebook',
-                    type: 'text',
-                    minLength: 1,
+                    type: 'row',
+                    fields: [
+                        {
+                            label: 'Name',
+                            type: 'text',
+                            name: 'name',
+                            required: true,
+                            minLength: 2,
+                            maxLength: 50,
+                        },
+                        {
+                            label: 'Icon (24x24px and preferably white colored SVG)',
+                            type: 'upload',
+                            relationTo: 'media',
+                            name: 'icon',
+                            required: true
+                        }
+                    ]
                 },
                 {
-                    label: 'Instagram Link',
-                    name: 'instagram',
+                    label: 'Social Media URL',
                     type: 'text',
-                    minLength: 1,
-                },
-                {
-                    label: 'Twitter Link',
-                    name: 'twitter',
-                    type: 'text',
-                    minLength: 1,
-                },
-                {
-                    label: 'Youtube Link',
-                    name: 'youtube',
-                    type: 'text',
-                    minLength: 1,
-                }
-                ,
-                {
-                    label: 'LinkedIn Link',
-                    name: 'linkedIn',
-                    type: 'text',
-                    minLength: 1,
+                    name: 'url',
+                    required: true,
+                    minLength: 2,
+                    maxLength: 400,
                 }
             ]
         }
-
     ]
 
 }

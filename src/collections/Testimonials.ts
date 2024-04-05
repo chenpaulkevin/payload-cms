@@ -7,7 +7,7 @@ import createdBy from '../fields/createdBy';
 const  Testimonials: CollectionConfig = {
     slug:'testimonials',
     admin:{
-        useAsTitle: 'title',
+        useAsTitle: 'customerName',
       },
       access:{
         create: isAdminorAuthor,
@@ -32,22 +32,36 @@ const  Testimonials: CollectionConfig = {
                     type: 'row',
                     fields: [
                         {
-                            label: 'First Name',
-                            name:'firstName',
+                            label: 'Customer Name',
+                            name:'customerName',
                             required: true,
                             type: "text",
-                            minLength: 2,
-                            maxLength: 50,
+                            minLength: 1,
+                            maxLength: 100,
                           },
                           {
-                            label: 'Last Name',
-                            name:'lastName',
+                            label: 'Customer Rating',
+                            name:'customerRating',
                             required: true,
-                            type: "text",
-                            minLength: 2,
-                            maxLength: 50,
-                          },
+                            type: 'select',
+                            defaultValue: "5",
+                            options: [
+                              { value: "5", label: '★★★★★' },
+                              { value: "4", label: '★★★★' },
+                              { value: "3", label: '★★★' },
+                              { value: "2", label: '★★' },
+                              { value: "1", label: '★' },
+                            ]
+                          }
                     ]
+                },
+                {
+                  label: 'Service Rendered',
+                  name:'service',
+                  required: true,
+                  type: "text",
+                  minLength: 2,
+                  maxLength: 40,
                 },
                 {
                     label: 'Testimonial Title',
@@ -63,7 +77,11 @@ const  Testimonials: CollectionConfig = {
                     required: true,
                     type: 'textarea',
                     minLength: 10,
-                    maxLength: 300
+                    maxLength: 300,
+                    admin: {
+                      description: ({ path, value }) =>
+                        `${typeof value === 'string' ? 300 - value.length : '300'} characters left.`,
+                    },
                 },
                 {
                     label: 'Customer Image',
