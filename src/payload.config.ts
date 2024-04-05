@@ -3,10 +3,9 @@ import Logo from './components/Logo'
 import Icon from './components/Icon'
 import '../tailwind.css'
 
-import { payloadCloud } from '@payloadcms/plugin-cloud'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
-import { slateEditor } from '@payloadcms/richtext-slate'
+import {lexicalEditor} from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload/config'
 
 import Users from './collections/Users'
@@ -52,7 +51,7 @@ export default buildConfig({
       }
     }
   },
-  editor: slateEditor({}),
+  editor: lexicalEditor({}),
   collections: [Blog, Users, Pages, Media, DesignModels,  Categories, Testimonials],
   cors: [
     process.env.PAYLOAD_PUBLIC_SERVER_URL || '',
