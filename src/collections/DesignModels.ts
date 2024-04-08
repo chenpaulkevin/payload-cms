@@ -58,12 +58,12 @@ const DesignModels: CollectionConfig = {
                 value: 'bungalow'
               },
               {
-                label: 'Two Storey',
-                value: 'twoStorey'
+                label: 'Two Story',
+                value: 'Two Story'
               },
               {
-                label: 'Three Storey',
-                value: 'threeStorey'
+                label: 'Three Story',
+                value: 'Three Story'
               },
             ]
           },],
@@ -81,6 +81,30 @@ const DesignModels: CollectionConfig = {
               type: 'upload',
               relationTo: 'media',
               required: true,
+            },
+            {
+              label: 'Image Slider',
+              name: 'slider',
+              type: 'array',
+              minRows: 1,
+              maxRows: 10,
+              required: true,
+              fields: [
+                {
+                  type: 'upload',
+                  name: 'image',
+                  relationTo: 'media',
+                  required: true,
+                },
+                {
+                  label: 'Caption',
+                  name: 'alt',
+                  type: 'text',
+                  required: true,
+                  minLength: 2,
+                  maxLength: 40,
+                }
+              ]
             },
 
           slug,

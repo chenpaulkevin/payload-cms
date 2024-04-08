@@ -7,6 +7,8 @@ import createdBy from '../fields/createdBy';
 import { BlogCollection } from '../blocks/BlogCollection';
 import {Testimonials} from '../blocks/Testimonials';
 import {SimpleRichText} from '../blocks/SimpleRichText';
+import {InfiniteBlogScroll} from '../blocks/InfiniteBlogScroll';
+import {DesignModelsGallery} from '../blocks/DesignModelsGallery';
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -49,7 +51,9 @@ const Pages: CollectionConfig = {
         About,
         BlogCollection,
         Testimonials,
-        SimpleRichText
+        SimpleRichText,
+        InfiniteBlogScroll,
+        DesignModelsGallery,
       ]
     }
   ],
