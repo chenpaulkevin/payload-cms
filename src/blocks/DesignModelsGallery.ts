@@ -1,4 +1,5 @@
 import { Block } from "payload/types";
+import thumbnail from "./thumbnails/Gallery.png";
 export type Type = {
     blockType: "content";
     blockName?: string;
@@ -7,6 +8,8 @@ export type Type = {
 
   export const DesignModelsGallery: Block = {
       slug: "designModelsGallery",
+      imageURL: `${thumbnail}`,
+      imageAltText: 'Block Thumbnail',
       labels: {
         singular: "Design Model Gallery Component",
         plural: "Design Model Gallery Components",

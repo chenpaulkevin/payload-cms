@@ -1,4 +1,5 @@
 import { Block } from "payload/types";
+import thumbnail from "./thumbnails/InfiniteBlogScroll.png";
 export type Type = {
     blockType: "content";
     blockName?: string;
@@ -7,6 +8,8 @@ export type Type = {
 
   export const InfiniteBlogScroll: Block = {
       slug: "infiniteBlogScroll",
+      imageURL: `${thumbnail}`,
+      imageAltText: 'Block Thumbnail',
       labels: {
         singular: "Infinite Blog Scroll Component",
         plural: "Infinite Blog Scroll Components",

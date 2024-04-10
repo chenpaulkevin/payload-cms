@@ -9,6 +9,9 @@ import {Testimonials} from '../blocks/Testimonials';
 import {SimpleRichText} from '../blocks/SimpleRichText';
 import {InfiniteBlogScroll} from '../blocks/InfiniteBlogScroll';
 import {DesignModelsGallery} from '../blocks/DesignModelsGallery';
+import {CenteredText} from '../blocks/CenteredText';
+import {TwoColumnImageRight} from '../blocks/TwoColumnRight';
+import {TwoColumnImageLeft} from '../blocks/TwoColumnLeft';
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -18,7 +21,11 @@ const Pages: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    description: 'Create and manage individual pages for your website. (If you intend to make a page your homepage, set the slug as "index".',
+    description: 'Create and manage individual pages for your website. (If you intend to make a page your homepage, set the slug as "index".)',
+    livePreview: {
+      url: ({ data }) =>
+        `${process.env.PAYLOAD_PUBLIC_SITE_URL}${data.slug !== 'index' ? `/${data.slug}` : ''}`,
+    },
   },
   access: {
     create: isAdmin,
@@ -54,6 +61,9 @@ const Pages: CollectionConfig = {
         SimpleRichText,
         InfiniteBlogScroll,
         DesignModelsGallery,
+        CenteredText,
+        TwoColumnImageRight,
+        TwoColumnImageLeft,
       ]
     }
   ],
