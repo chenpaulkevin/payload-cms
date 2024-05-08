@@ -1,6 +1,7 @@
 import { isAdmin } from "../access/isAdmin";
 import { GlobalConfig } from "payload/types";
 
+
 export const Footer: GlobalConfig = {
     slug: 'footer',
     label: 'Footer Configurations',
@@ -11,6 +12,7 @@ export const Footer: GlobalConfig = {
     admin:{
         description: 'Configure your global footer which includes the logo, quick links and location.',
     },
+
     fields: [
         {
             label: 'Logo',

@@ -1,6 +1,7 @@
 import { isAdmin } from "../access/isAdmin";
 import { GlobalConfig } from "payload/types";
 
+
 export const Header:GlobalConfig = {
     slug: 'header',
     label: 'Header Configurations',
@@ -11,6 +12,7 @@ export const Header:GlobalConfig = {
     admin:{
         description: 'Configure your global navigation bar which includes the logo, site title and links to other pages.',
     },
+
     fields: [
         {
             type: 'row',
