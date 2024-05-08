@@ -28,7 +28,7 @@ import { Metadata } from './globals/Metadata'
 
 
 export default buildConfig({
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
+  serverURL: process.env.PAYLOAD_PUBLIC_BASE_DNS,
   admin: {
     user: Users.slug,
     livePreview: {
@@ -66,11 +66,11 @@ export default buildConfig({
   editor: lexicalEditor({}),
   collections: [Blog, Users, Pages, Media, DesignModels,  Categories, Testimonials],
   cors: [
-    process.env.PAYLOAD_PUBLIC_SERVER_URL || '',
+    process.env.PAYLOAD_PUBLIC_BASE_DNS || '',
     process.env.PAYLOAD_PUBLIC_SITE_URL || '',
   ].filter(Boolean),
   csrf: [
-    process.env.PAYLOAD_PUBLIC_SERVER_URL || '',
+    process.env.PAYLOAD_PUBLIC_BASE_DNS || '',
     process.env.PAYLOAD_PUBLIC_SITE_URL || '',
   ].filter(Boolean),
   globals: [Header, Footer, Metadata],
