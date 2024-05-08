@@ -12,6 +12,12 @@ import {DesignModelsGallery} from '../blocks/DesignModelsGallery';
 import {CenteredText} from '../blocks/CenteredText';
 import {TwoColumnImageRight} from '../blocks/TwoColumnRight';
 import {TwoColumnImageLeft} from '../blocks/TwoColumnLeft';
+import { FormBlock } from '../blocks/Form';
+import { HeaderAndDescription } from '../blocks/HeaderAndDescription';
+import { FullWidthImage } from '../blocks/FullWidthImage';
+import { CardWithTitle } from '../blocks/CardWithTitle';
+
+import { revalidatePage } from '../utilities/updateFrontend';
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -36,7 +42,6 @@ const Pages: CollectionConfig = {
   versions: {
     drafts: true,
   },
-
   fields: [
     {
       label: 'Page Title',
@@ -64,6 +69,10 @@ const Pages: CollectionConfig = {
         CenteredText,
         TwoColumnImageRight,
         TwoColumnImageLeft,
+        FormBlock,
+        HeaderAndDescription,
+        FullWidthImage,
+        CardWithTitle,
       ]
     }
   ],
@@ -78,6 +87,11 @@ const Pages: CollectionConfig = {
         }
       },
     ],
+    afterChange: [
+      ({doc}) => {
+        revalidatePage(doc.slug)
+      }
+    ]
   },
 }
 

@@ -29,18 +29,15 @@ const Media: CollectionConfig = {
   },
   upload: {
     adminThumbnail: 'card',
-    imageSizes: [
-      {
-        name: 'card',
-        width: 640,
-        height: 480,
-      },
-      {
-        name: 'feature',
-        width: 1024,
-        height: 576,
-      },
-    ],
+    crop: false,
+    mimeTypes: ['image/*', 'image/png'],
+    focalPoint: false,
+    formatOptions: {
+      format: 'webp',
+      options: {
+        quality: 70
+      }
+    },
   },
   fields: [
     {
