@@ -10,9 +10,14 @@ export const Blog: CollectionConfig = {
         singular: "Blog Post",
         plural: "Blog Posts"
     },
+    
     admin:{
         useAsTitle: 'title',
-        group: 'Blog'
+        group: 'Blog',
+        livePreview: {
+          url: ({ data }) =>
+            `${process.env.PAYLOAD_PUBLIC_SITE_URL}/blog${data.slug !== 'index' ? `/${data.slug}` : ''}`,
+        },
       },
       access:{
         create: isAdminorAuthor,
@@ -42,7 +47,11 @@ export const Blog: CollectionConfig = {
             required: true,
             type: 'text',
             minLength: 5,
-            maxLength: 80
+            maxLength: 60,
+            admin: {
+              description: ({ path, value }) =>
+                `${typeof value === 'string' ? 60 - value.length : '60'} characters left.`,
+            },
         },
         {
           label: 'Blog Description',
@@ -50,10 +59,10 @@ export const Blog: CollectionConfig = {
           required: true,
           type: 'textarea',
           minLength: 10,
-          maxLength: 300,
+          maxLength: 150,
           admin: {
             description: ({ path, value }) =>
-              `${typeof value === 'string' ? 300 - value.length : '300'} characters left.`,
+              `${typeof value === 'string' ? 150 - value.length : '150'} characters left.`,
           },
       },
         {
