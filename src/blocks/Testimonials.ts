@@ -1,5 +1,5 @@
 import { Block } from "payload/types";
-import thumbnail from "./thumbnails/Testimonial.png";
+const thumbnail = require("./thumbnails/Testimonial.png");
 export type Type = {
     blockType: "content";
     blockName?: string;
