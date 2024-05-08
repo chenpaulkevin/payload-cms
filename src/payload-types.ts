@@ -15,12 +15,15 @@ export interface Config {
     designModels: DesignModel;
     categories: Category;
     testimonials: Testimonial;
+    forms: Form;
+    'form-submissions': FormSubmission;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
   globals: {
     header: Header;
     footer: Footer;
+    metadata: Metadatum;
   };
 }
 /**
@@ -30,14 +33,32 @@ export interface Config {
 export interface Blog {
   id: number;
   title: string;
+  description: string;
   categories: number | Category;
   readTime: number;
-  blogContent: {
-    [k: string]: unknown;
-  }[];
   blogImage: number | Media;
+  blogContent: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   slug?: string | null;
   createdBy?: (number | null) | User;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: number | Media | null;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -90,24 +111,6 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
-  sizes?: {
-    card?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    feature?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -134,22 +137,132 @@ export interface Page {
         | {
             header: string;
             description: string;
-            projectsCompleted: number;
-            experience: number;
-            employees: number;
-            satisfiedCustomers: number;
+            milestones: {
+              label: string;
+              value: number;
+              id?: string | null;
+            }[];
             featuredImage: number | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'about';
           }
         | {
+            blockHeader: string;
+            cta: {
+              ctaLabel: string;
+              ctaLink: number | Page;
+              id?: string | null;
+            }[];
             mainFeature: number | Blog;
             secondaryFeature: number | Blog;
             thirdFeature: number | Blog;
             id?: string | null;
             blockName?: string | null;
             blockType: 'blogCollection';
+          }
+        | {
+            blockHeader: string;
+            blockDescription: string;
+            firstTestimonial: number | Testimonial;
+            secondTestimonial: number | Testimonial;
+            thirdTestimonial: number | Testimonial;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonialsBlock';
+          }
+        | {
+            body?: {
+              root: {
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                type: string;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'simpleRichText';
+          }
+        | {
+            blockHeader: string;
+            blockDescription: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'infiniteBlogScroll';
+          }
+        | {
+            blockHeader: string;
+            blockDescription: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'designModelsGallery';
+          }
+        | {
+            header: string;
+            subheader?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'centeredText';
+          }
+        | {
+            header: string;
+            subheader?: string | null;
+            featuredImage: number | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'twoColumnImageRight';
+          }
+        | {
+            header: string;
+            subheader?: string | null;
+            featuredImage: number | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'twoColumnImageLeft';
+          }
+        | {
+            form: number | Form;
+            enable2ColumnLayout?: boolean | null;
+            header?: string | null;
+            content?: {
+              root: {
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                type: string;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'formBlock';
+          }
+        | {
+            header: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'headerAndDescription';
+          }
+        | {
+            image?: number | Media | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'fullWidthImage';
           }
       )[]
     | null;
@@ -166,9 +279,14 @@ export interface DesignModel {
   title: string;
   description: string;
   floorArea: number;
-  category: 'bungalow' | 'twoStorey' | 'threeStorey';
+  category: 'bungalow' | 'Two Story' | 'Three Story';
   featuredImage: number | Media;
   floorPlanImage: number | Media;
+  slider: {
+    image: number | Media;
+    alt: string;
+    id?: string | null;
+  }[];
   slug?: string | null;
   createdBy?: (number | null) | User;
   updatedAt: string;
@@ -180,13 +298,177 @@ export interface DesignModel {
  */
 export interface Testimonial {
   id: number;
-  firstName: string;
-  lastName: string;
+  customerName: string;
+  customerRating: '5' | '4' | '3' | '2' | '1';
+  service: string;
   title: string;
   testimonialDescription: string;
   customerImage?: number | Media | null;
   slug?: string | null;
   createdBy?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forms".
+ */
+export interface Form {
+  id: number;
+  title: string;
+  fields?:
+    | (
+        | {
+            name: string;
+            label?: string | null;
+            width?: number | null;
+            required?: boolean | null;
+            defaultValue?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'checkbox';
+          }
+        | {
+            name: string;
+            label?: string | null;
+            width?: number | null;
+            required?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'email';
+          }
+        | {
+            message?: {
+              root: {
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                type: string;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'message';
+          }
+        | {
+            name: string;
+            label?: string | null;
+            width?: number | null;
+            defaultValue?: number | null;
+            required?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'number';
+          }
+        | {
+            name: string;
+            label?: string | null;
+            width?: number | null;
+            defaultValue?: string | null;
+            options?:
+              | {
+                  label: string;
+                  value: string;
+                  id?: string | null;
+                }[]
+              | null;
+            required?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'select';
+          }
+        | {
+            name: string;
+            label?: string | null;
+            width?: number | null;
+            defaultValue?: string | null;
+            required?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'text';
+          }
+        | {
+            name: string;
+            label?: string | null;
+            width?: number | null;
+            defaultValue?: string | null;
+            required?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'textarea';
+          }
+      )[]
+    | null;
+  submitButtonLabel?: string | null;
+  confirmationType?: ('message' | 'redirect') | null;
+  confirmationMessage?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  redirect?: {
+    url: string;
+  };
+  emails?:
+    | {
+        emailTo?: string | null;
+        cc?: string | null;
+        bcc?: string | null;
+        replyTo?: string | null;
+        emailFrom?: string | null;
+        subject: string;
+        message?: {
+          root: {
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            type: string;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions".
+ */
+export interface FormSubmission {
+  id: number;
+  form: number | Form;
+  submissionData?:
+    | {
+        field: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -231,9 +513,14 @@ export interface PayloadMigration {
 export interface Header {
   id: number;
   logo: number | Media;
+  cta: {
+    ctaLabel: string;
+    ctaLink: number | Page;
+    id?: string | null;
+  }[];
   navLinks: {
     label: string;
-    link: string;
+    link: number | Page;
     id?: string | null;
   }[];
   updatedAt?: string | null;
@@ -248,9 +535,10 @@ export interface Footer {
   logo: number | Media;
   title: string;
   subheader: string;
+  motto?: string | null;
   quickLinks: {
     label: string;
-    link: string;
+    link: number | Page;
     id?: string | null;
   }[];
   location: {
@@ -258,13 +546,28 @@ export interface Footer {
     streetAddress: string;
     id?: string | null;
   }[];
-  socialLinks?: {
-    facebook?: string | null;
-    instagram?: string | null;
-    twitter?: string | null;
-    youtube?: string | null;
-    linkedIn?: string | null;
-  };
+  socialMediaLinks: {
+    name: string;
+    icon: number | Media;
+    url: string;
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "metadata".
+ */
+export interface Metadatum {
+  id: number;
+  icon: number | Media;
+  title: string;
+  description: string;
+  keywords: {
+    keyword: string;
+    id?: string | null;
+  }[];
   updatedAt?: string | null;
   createdAt?: string | null;
 }

@@ -7,6 +7,10 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
 import {lexicalEditor} from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload/config'
+import formBuilder from '@payloadcms/plugin-form-builder'
+import seoPlugin from '@payloadcms/plugin-seo';
+
+
 
 import Users from './collections/Users'
 import Pages from './collections/Pages'
@@ -17,33 +21,18 @@ import { Blog } from './collections/Blog/Blog'
 import Testimonials from './collections/Testimonials'
 import { Header } from './globals/Header'
 import { Footer } from './globals/Footer'
+import { Metadata } from './globals/Metadata'
+
+
+
+
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   admin: {
     user: Users.slug,
     livePreview: {
-      collections: ['pages'],
-      breakpoints: [
-        {
-          label: 'Mobile',
-          name: 'mobile',
-          width: 375,
-          height: 667,
-        },
-        {
-          label: 'Tablet',
-          name: 'tablet',
-          width: 768,
-          height: 1024,
-        },
-        {
-          label: 'Desktop',
-          name: 'desktop',
-          width: 1440,
-          height: 900,
-        },
-      ],
+      url: ({ documentInfo } : {documentInfo: any}) => `${process.env.PAYLOAD_PUBLIC_SITE_URL}/${documentInfo.slug !== 'index' ? documentInfo.slug : ''}`,
     },
     webpack: (config) => {
       return {
@@ -84,7 +73,7 @@ export default buildConfig({
     process.env.PAYLOAD_PUBLIC_SERVER_URL || '',
     process.env.PAYLOAD_PUBLIC_SITE_URL || '',
   ].filter(Boolean),
-  globals: [Header, Footer],
+  globals: [Header, Footer, Metadata],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
     declare: false,
@@ -92,7 +81,48 @@ export default buildConfig({
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
-  plugins: [],
+  rateLimit: {
+    max: 500, // limit each IP per windowMs
+    trustProxy: true,
+    window: 2 * 60 * 1000, // 2 minutes
+  },
+  plugins: [
+    formBuilder({
+      formOverrides: {
+        admin: {
+          group: "Forms"
+        }
+      },
+      formSubmissionOverrides: {
+        admin: {
+          group: "Forms"
+        }
+      },
+      fields: {
+        state: false,
+        country: false,
+        message: true,
+        payment: false,
+      },
+    }),
+    seoPlugin({
+      collections: [
+        'blog',
+        'designModels',
+      ],
+      uploadsCollection: 'media',
+      generateTitle: ({ doc } : {doc: any}) => `${doc?.title?.value}`,
+      generateDescription: ({ doc } : {doc: any}) => doc?.description?.value,
+      generateImage: ({ doc } : {doc: any}) => doc?.blogImage?.value,
+      generateURL: ({ doc } : {doc: any}) => `${process.env.PAYLOAD_PUBLIC_SITE_URL}/blog/${doc?.slug?.value}`
+    })
+
+  ],
+  upload: {
+    limits: {
+      fileSize: 3000000, // 5MB, written in bytes
+    },
+  },
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI,
